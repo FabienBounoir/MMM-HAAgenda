@@ -149,6 +149,18 @@ Apple ne rend pas l'app Rappels accessible à Home Assistant. Pour les afficher 
 
 Avec `local_only: true`, l'envoi ne fonctionne que depuis le Wi-Fi de la maison.
 
+### Plusieurs personnes
+
+Pour séparer les rappels de chacun, donnez à chaque personne sa liste de tâches et son propre webhook (un déclencheur par personne avec un `id`, et la liste choisie selon `trigger.id`). Envoyez ensuite au miroir un objet au lieu d'une liste :
+
+```yaml
+        reminders:
+          Fabien: "{{ todos['todo.rappels_fabien']['items'] }}"
+          Manon: "{{ todos['todo.rappels_manon']['items'] }}"
+```
+
+Le miroir affiche alors un groupe par personne (« Rappels · Manon »), chacun de sa couleur.
+
 ## Options
 
 | Option | Défaut | Description |
@@ -156,7 +168,8 @@ Avec `local_only: true`, l'envoi ne fonctionne que depuis le Wi-Fi de la maison.
 | `maxEvents` | `6` | Nombre maximum d'événements affichés |
 | `maxReminders` | `6` | Nombre maximum de rappels affichés |
 | `colors` | `{}` | Couleur par calendrier, par exemple `{ "calendar.travail": "#ff9f0a" }`. Sinon, une couleur est attribuée à chaque calendrier dans l'ordre alphabétique |
-| `reminderColor` | `"#ffd60a"` | Couleur des pastilles de rappels |
+| `reminderColor` | `"#ffd60a"` | Couleur des pastilles de rappels (du premier groupe s'il y en a plusieurs) |
+| `reminderColors` | `{}` | Couleur par personne quand les rappels sont groupés, par exemple `{ "Manon": "#ff6fa8" }` |
 
 ## Format reçu
 
@@ -176,7 +189,7 @@ Pour alimenter le module depuis autre chose que Home Assistant, envoyez en POST 
 }
 ```
 
-C'est le format de réponse de `calendar.get_events` et de `todo.get_items`. Une date sans heure correspond à un événement sur toute la journée.
+`reminders` peut aussi être un objet `{ "Fabien": [...], "Manon": [...] }` pour un groupe par personne. C'est le format de réponse de `calendar.get_events` et de `todo.get_items`. Une date sans heure correspond à un événement sur toute la journée.
 
 L'adresse de réception n'a pas de mot de passe : n'importe quel appareil de votre réseau local peut y envoyer un agenda. Le module n'affiche que du texte, ce qui limite le risque, mais n'ouvrez pas le port 8080 du miroir sur Internet.
 
