@@ -1,0 +1,26 @@
+{
+	"name": "mmm-haagenda",
+	"version": "1.0.0",
+	"description": "MagicMirror² module: today's and tomorrow's events from every Home Assistant calendar (iCloud, Google, CalDAV…) plus a to-do list, pushed by Home Assistant",
+	"main": "MMM-HAAgenda.js",
+	"scripts": {
+		"test": "node test.js"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"keywords": [
+		"MagicMirror",
+		"Home Assistant",
+		"calendar",
+		"agenda",
+		"icloud",
+		"reminders"
+	],
+	"author": "Fabien Bounoir",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/FabienBounoir/MMM-HAAgenda.git"
+	}
+}

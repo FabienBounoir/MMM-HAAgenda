@@ -1,0 +1,126 @@
+/* Sobre et compact : une ligne par événement, la couleur du calendrier sur la barre de gauche */
+
+.HAA {
+  text-align: left;
+  width: 17em;
+}
+
+.HAA_day {
+  align-items: center;
+  color: #ffffff;
+  display: flex;
+  font-size: 0.65em;
+  gap: 0.7em;
+  letter-spacing: 0.16em;
+  margin: 0.8em 0 0.3em;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.HAA_day:first-child {
+  margin-top: 0;
+}
+
+.HAA_day::after {
+  background: linear-gradient(90deg, rgb(255 255 255 / 0.4), transparent);
+  content: "";
+  flex: 1;
+  height: 1px;
+}
+
+.HAA_event {
+  align-items: center;
+  display: flex;
+  gap: 0.6em;
+  line-height: 1.6;
+}
+
+.HAA_today {
+  position: relative;
+}
+
+.HAA_today::before {
+  background: var(--HAA-color);
+  border-radius: 1em;
+  content: "";
+  filter: blur(0.9em);
+  inset: 0.15em 15% 0.15em -0.4em;
+  opacity: 0.3;
+  pointer-events: none;
+  position: absolute;
+}
+
+.HAA_today > * {
+  position: relative;
+}
+
+.HAA_bar {
+  align-self: stretch;
+  background: var(--HAA-color);
+  border-radius: 0.2em;
+  flex: none;
+  margin: 0.25em 0;
+  width: 0.2em;
+}
+
+.HAA_time {
+  color: color-mix(in srgb, var(--HAA-color) 30%, #ffffff);
+  flex: none;
+  font-size: 0.8em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+  width: 3.6em;
+}
+
+.HAA_title {
+  color: #ffffff;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.HAA_when {
+  color: var(--HAA-color);
+  flex: none;
+  font-size: 0.75em;
+}
+
+/* Rappels : pastilles */
+.HAA_chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+}
+
+.HAA_chip {
+  border: 1px solid color-mix(in srgb, var(--HAA-color) 55%, transparent);
+  border-radius: 1em;
+  color: #ffffff;
+  font-size: 0.8em;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0.05em 0.7em 0.05em 0.55em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.HAA_chip::before {
+  color: var(--HAA-color);
+  content: "○ ";
+}
+
+/* Seul effet gardé : les lignes apparaissent en fondu quand l'agenda change */
+@media (prefers-reduced-motion: no-preference) {
+  .HAA_enter .HAA_day,
+  .HAA_enter .HAA_event,
+  .HAA_enter .HAA_chip {
+    animation: HAA_in 0.6s ease-out both;
+    animation-delay: calc(var(--i) * 0.06s);
+  }
+}
+
+@keyframes HAA_in {
+  from { opacity: 0; }
+}
