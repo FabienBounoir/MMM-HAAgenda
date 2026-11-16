@@ -2,13 +2,15 @@
 
 // Couleurs vives qui traversent le verre du miroir, une par calendrier (option colors pour choisir)
 const HAA_PALETTE = ['#5ac8fa', '#ff9f0a', '#bf5af2', '#30d158', '#ff375f'];
+const HAA_REMINDER_PALETTE = ['#ffd60a', '#ff6fa8', '#30d158', '#bf5af2'];
 
 Module.register('MMM-HAAgenda', {
   defaults: {
     maxEvents: 6,
     maxReminders: 6,
     colors: {},              // { 'calendar.travail': '#ff9f0a' }
-    reminderColor: '#ffd60a'
+    reminderColor: '#ffd60a',   // couleur du premier groupe de rappels
+    reminderColors: {}          // par personne : { Manon: '#ff375f' }
   },
 
   start() {
@@ -56,15 +58,22 @@ Module.register('MMM-HAAgenda', {
       wrapper.appendChild(HAA_stagger(this.eventRow(e, now), i++));
     }
 
-    const reminders = (this.agenda.reminders || []).slice(0, this.config.maxReminders);
-    if (reminders.length) {
-      wrapper.appendChild(HAA_stagger(HAA_el('div', 'HAA_day', 'Rappels'), i++));
+    // Un groupe de pastilles par personne (« Rappels · Manon »), chacun de sa couleur
+    HAA_reminderGroups(this.agenda.reminders).forEach((group, n) => {
+      const items = group.items.slice(0, this.config.maxReminders);
+      if (!items.length) return;
+      wrapper.appendChild(HAA_stagger(HAA_el('div', 'HAA_day', group.name ? 'Rappels · ' + group.name : 'Rappels'), i++));
       const chips = HAA_el('div', 'HAA_chips');
-      chips.style.setProperty('--HAA-color', this.config.reminderColor);
-      for (const r of reminders) chips.appendChild(HAA_stagger(HAA_el('span', 'HAA_chip', r.summary), i++));
+      chips.style.setProperty('--HAA-color', this.reminderColor(group.name, n));
+      for (const r of items) chips.appendChild(HAA_stagger(HAA_el('span', 'HAA_chip', r.summary), i++));
       wrapper.appendChild(chips);
-    }
+    });
     return wrapper;
+  },
+
+  reminderColor(name, n) {
+    if (this.config.reminderColors[name]) return this.config.reminderColors[name];
+    return n === 0 ? this.config.reminderColor : HAA_REMINDER_PALETTE[n % HAA_REMINDER_PALETTE.length];
   },
 
   // Une ligne par événement : barre de couleur, heure, titre, compte à rebours
@@ -132,4 +141,11 @@ function HAA_countdown(e, now) {
   return '';
 }
 
-if (typeof module !== 'undefined') module.exports = { HAA_events, HAA_countdown };
+// reminders : une liste (un seul groupe) ou { "Fabien": [...], "Manon": [...] } (un groupe par personne)
+function HAA_reminderGroups(reminders) {
+  if (!reminders) return [];
+  if (Array.isArray(reminders)) return [{ name: '', items: reminders }];
+  return Object.entries(reminders).map(([name, items]) => ({ name, items: Array.isArray(items) ? items : [] }));
+}
+
+if (typeof module !== 'undefined') module.exports = { HAA_events, HAA_countdown, HAA_reminderGroups };
