@@ -7,7 +7,7 @@ Module [MagicMirror²](https://magicmirror.builders) qui affiche les événement
 - **Une ligne par événement**, avec la couleur de son calendrier sur la barre de gauche.
 - **Compte à rebours** : « dans 25 min », « dans 2 h 05 », puis « en cours ».
 - **Aujourd'hui en avant** : un léger halo de la couleur du calendrier derrière les événements du jour.
-- **Rappels en pastilles**, depuis n'importe quelle liste de tâches Home Assistant.
+- **Rappels en liste sur deux colonnes**, depuis n'importe quelle liste de tâches Home Assistant.
 - **Rien à configurer côté miroir** : pas de jeton ni de mot de passe. C'est Home Assistant qui envoie l'agenda au miroir.
 - Le module reste invisible quand il n'y a rien à afficher. Textes en français.
 
@@ -168,7 +168,7 @@ Le miroir affiche alors un groupe par personne (« Rappels · Manon »), chacun 
 | `maxEvents` | `6` | Nombre maximum d'événements affichés |
 | `maxReminders` | `6` | Nombre maximum de rappels affichés |
 | `colors` | `{}` | Couleur par calendrier, par exemple `{ "calendar.travail": "#ff9f0a" }`. Sinon, une couleur est attribuée à chaque calendrier dans l'ordre alphabétique |
-| `reminderColor` | `"#ffd60a"` | Couleur des pastilles de rappels (du premier groupe s'il y en a plusieurs) |
+| `reminderColor` | `"#ffd60a"` | Couleur du trait devant les rappels (du premier groupe s'il y en a plusieurs) |
 | `reminderColors` | `{}` | Couleur par personne quand les rappels sont groupés, par exemple `{ "Manon": "#ff6fa8" }` |
 
 ## Format reçu

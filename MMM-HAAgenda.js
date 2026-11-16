@@ -9,7 +9,7 @@ Module.register('MMM-HAAgenda', {
     maxEvents: 6,
     maxReminders: 6,
     colors: {},              // { 'calendar.travail': '#ff9f0a' }
-    reminderColor: '#ffd60a',   // couleur du premier groupe de rappels
+    reminderColor: '#ffd60a',   // couleur du trait devant les rappels (du premier groupe)
     reminderColors: {}          // par personne : { Manon: '#ff375f' }
   },
 
@@ -58,15 +58,15 @@ Module.register('MMM-HAAgenda', {
       wrapper.appendChild(HAA_stagger(this.eventRow(e, now), i++));
     }
 
-    // Un groupe de pastilles par personne (« Rappels · Manon »), chacun de sa couleur
+    // Rappels en liste sur deux colonnes ; un groupe par personne si HA les envoie séparés (« Rappels · Manon »)
     HAA_reminderGroups(this.agenda.reminders).forEach((group, n) => {
       const items = group.items.slice(0, this.config.maxReminders);
       if (!items.length) return;
       wrapper.appendChild(HAA_stagger(HAA_el('div', 'HAA_day', group.name ? 'Rappels · ' + group.name : 'Rappels'), i++));
-      const chips = HAA_el('div', 'HAA_chips');
-      chips.style.setProperty('--HAA-color', this.reminderColor(group.name, n));
-      for (const r of items) chips.appendChild(HAA_stagger(HAA_el('span', 'HAA_chip', r.summary), i++));
-      wrapper.appendChild(chips);
+      const list = HAA_el('div', 'HAA_reminders');
+      list.style.setProperty('--HAA-color', this.reminderColor(group.name, n));
+      for (const r of items) list.appendChild(HAA_stagger(HAA_el('div', 'HAA_reminder', r.summary), i++));
+      wrapper.appendChild(list);
     });
     return wrapper;
   },

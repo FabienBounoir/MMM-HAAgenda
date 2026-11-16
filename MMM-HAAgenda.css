@@ -96,35 +96,37 @@
   font-size: 0.75em;
 }
 
-/* Rappels : pastilles */
-.HAA_chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35em;
+/* Rappels : liste sur deux colonnes, un petit trait de couleur devant chacun */
+.HAA_reminders {
+  display: grid;
+  gap: 0.1em 1.2em;
+  grid-template-columns: 1fr 1fr;
 }
 
-.HAA_chip {
-  border: 1px solid color-mix(in srgb, var(--HAA-color) 55%, transparent);
-  border-radius: 1em;
+.HAA_reminder {
   color: #ffffff;
-  font-size: 0.8em;
-  max-width: 100%;
+  line-height: 1.5;
+  min-width: 0;
   overflow: hidden;
-  padding: 0.05em 0.7em 0.05em 0.55em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.HAA_chip::before {
-  color: var(--HAA-color);
-  content: "○ ";
+.HAA_reminder::before {
+  background: var(--HAA-color);
+  content: "";
+  display: inline-block;
+  height: 0.13em;
+  margin-right: 0.55em;
+  vertical-align: 0.28em;
+  width: 0.55em;
 }
 
 /* Seul effet gardé : les lignes apparaissent en fondu quand l'agenda change */
 @media (prefers-reduced-motion: no-preference) {
   .HAA_enter .HAA_day,
   .HAA_enter .HAA_event,
-  .HAA_enter .HAA_chip {
+  .HAA_enter .HAA_reminder {
     animation: HAA_in 0.6s ease-out both;
     animation-delay: calc(var(--i) * 0.06s);
   }
