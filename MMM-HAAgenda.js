@@ -37,7 +37,9 @@ Module.register('MMM-HAAgenda', {
   },
 
   getDom() {
-    const wrapper = HAA_el('div', 'HAA small');
+    // Dans une colonne de droite, les titres s'alignent à droite comme ceux de MMM-Meteo
+    const right = (this.data.position || '').includes('right');
+    const wrapper = HAA_el('div', 'HAA small' + (right ? ' HAA_right' : ''));
     if (!this.agenda) return wrapper;
     if (this.entering) wrapper.classList.add('HAA_enter');
     this.entering = false;
