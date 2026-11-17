@@ -169,6 +169,7 @@ Le miroir affiche alors un groupe par personne (« Rappels · Manon »), chacun 
 | `maxReminders` | `6` | Nombre maximum de rappels affichés |
 | `colors` | `{}` | Couleur par calendrier, par exemple `{ "calendar.travail": "#ff9f0a" }`. Sinon, une couleur est attribuée à chaque calendrier dans l'ordre alphabétique |
 | `reminderColor` | `"#ffd60a"` | Couleur du trait devant les rappels (du premier groupe s'il y en a plusieurs) |
+| `scale` | `1` | Taille du texte. `1` = taille de base du miroir (la même que MMM-Meteo), `1.2` = 20 % plus grand, `0.8` = plus petit |
 | `reminderColors` | `{}` | Couleur par personne quand les rappels sont groupés, par exemple `{ "Manon": "#ff6fa8" }` |
 
 ## Format reçu

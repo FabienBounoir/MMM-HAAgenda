@@ -10,7 +10,8 @@ Module.register('MMM-HAAgenda', {
     maxReminders: 6,
     colors: {},              // { 'calendar.travail': '#ff9f0a' }
     reminderColor: '#ffd60a',   // couleur du trait devant les rappels (du premier groupe)
-    reminderColors: {}          // par personne : { Manon: '#ff375f' }
+    reminderColors: {},         // par personne : { Manon: '#ff375f' }
+    scale: 1                    // taille du texte : 1 = taille de base du miroir (comme MMM-Meteo), 1.2 = 20 % plus grand
   },
 
   start() {
@@ -41,7 +42,9 @@ Module.register('MMM-HAAgenda', {
   getDom() {
     // Dans une colonne de droite, les titres s'alignent à droite comme ceux de MMM-Meteo
     const right = (this.data.position || '').includes('right');
-    const wrapper = HAA_el('div', 'HAA small' + (right ? ' HAA_right' : ''));
+    // Taille de base du miroir (--font-size), comme MMM-Meteo, multipliée par l'option scale
+    const wrapper = HAA_el('div', 'HAA' + (right ? ' HAA_right' : ''));
+    wrapper.style.fontSize = this.config.scale + 'em';
     if (!this.agenda) return wrapper;
     if (this.entering) wrapper.classList.add('HAA_enter');
     this.entering = false;
