@@ -30,7 +30,8 @@
 }
 
 .HAA_event {
-  align-items: center;
+  /* Heure et compte à rebours alignés sur la première ligne du titre */
+  align-items: baseline;
   display: flex;
   gap: 0.6em;
   line-height: 1.6;
@@ -82,12 +83,16 @@
 }
 
 .HAA_title {
+  /* Titre sur deux lignes au plus, coupé avec « … » au-delà */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   color: #ffffff;
+  display: -webkit-box;
   flex: 1;
+  line-height: 1.3;
   min-width: 0;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  padding-block: 0.15em;
 }
 
 .HAA_when {

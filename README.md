@@ -4,7 +4,7 @@ Module [MagicMirror²](https://magicmirror.builders) qui affiche les événement
 
 ![Agenda et rappels sur le miroir](img/screenshot.png)
 
-- **Une ligne par événement**, avec la couleur de son calendrier sur la barre de gauche.
+- **Une ligne par événement** (deux si le titre est long), avec la couleur de son calendrier sur la barre de gauche.
 - **Compte à rebours** : « dans 25 min », « dans 2 h 05 », puis « en cours ».
 - **Aujourd'hui en avant** : un léger halo de la couleur du calendrier derrière les événements du jour.
 - **Rappels en liste sur deux colonnes**, depuis n'importe quelle liste de tâches Home Assistant.
